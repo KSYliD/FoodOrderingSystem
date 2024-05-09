@@ -1,46 +1,40 @@
-package com.example.foodorderingsystem.services.implementations;
+package com.example.foodorderingsystem.controllers;
 
 import com.example.foodorderingsystem.entities.Dessert;
-import com.example.foodorderingsystem.repositories.DessertRepository;
 import com.example.foodorderingsystem.services.interfaces.DessertService;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Service
+@RestController
 @AllArgsConstructor
-public class DessertServiceImpl implements DessertService {
-    private DessertRepository dessertRepository;
+@RequestMapping("/dessert")
+public class DessertController {
+    private DessertService dessertService;
 
-
-    @Override
-    public Dessert save(Dessert dessert) {
-        return dessertRepository.save(dessert);
+    @PostMapping
+    public Dessert save(@RequestBody Dessert dessert) {
+        return dessertService.save(dessert);
     }
 
-    @Override
-    public List<Dessert> readAll() {
-        return dessertRepository.readAll();
+    @GetMapping
+    public List<Dessert> findAll() {
+        return dessertService.findAll();
     }
 
-    @Override
-    public Dessert readById(long id) {
-        return dessertRepository.readById(id);
+    @GetMapping("/{name}")
+    public Dessert findByName(@PathVariable String name) {
+        return dessertService.findByName(name);
     }
 
-    @Override
-    public Dessert readByName(String name) {
-        return dessertRepository.readByName(name);
+    @PutMapping
+    public Dessert update(@RequestBody Dessert dessert) {
+        return dessertService.update(dessert);
     }
 
-    @Override
-    public Dessert update(Dessert dessert) {
-        return dessertRepository.update(dessert);
-    }
-
-    @Override
-    public void delete(Dessert dessert) {
-        dessertRepository.delete(dessert);
+    @DeleteMapping
+    public void delete(@RequestBody Dessert dessert) {
+        dessertService.delete(dessert);
     }
 }

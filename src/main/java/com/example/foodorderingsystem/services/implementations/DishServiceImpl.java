@@ -1,4 +1,4 @@
-package com.example.foodorderingsystem.services.classes;
+package com.example.foodorderingsystem.services.implementations;
 
 import com.example.foodorderingsystem.entities.Dish;
 import com.example.foodorderingsystem.repositories.DishRepository;
@@ -19,27 +19,38 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public List<Dish> readAll() {
-        return dishRepository.readAll();
+    public List<Dish> findAll() {
+        return dishRepository.findAll();
     }
 
     @Override
-    public Dish readById(long id) {
-        return dishRepository.readById(id);
+    public Dish findById(long id) {
+        return dishRepository.findById(id);
     }
 
     @Override
-    public Dish readByName(String name) {
-        return dishRepository.readByName(name);
+    public Dish findByName(String name) {
+        return dishRepository.findByName(name);
     }
 
     @Override
     public Dish update(Dish dish) {
-        return dishRepository.update(dish);
+        Dish dishData = dishRepository.findById(dish.getId());
+        dishData.setName(dish.getName());
+        dishData.setPrice(dish.getPrice());
+        dishData.setDetails(dish.getDetails());
+        dishData.setCuisine(dish.getCuisine());
+        return dishRepository.save(dishData);
+
     }
 
     @Override
     public void delete(Dish dish) {
         dishRepository.delete(dish);
+    }
+
+    @Override
+    public boolean existsByName(String name) {
+        return dishRepository.existsByName(name);
     }
 }

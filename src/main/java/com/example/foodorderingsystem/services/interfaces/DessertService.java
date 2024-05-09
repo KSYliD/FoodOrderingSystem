@@ -1,9 +1,15 @@
-package com.example.foodorderingsystem.repositories;
+package com.example.foodorderingsystem.services.interfaces;
 
 import com.example.foodorderingsystem.entities.Dessert;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface DessertRepository extends JpaRepository<Dessert, Long> {
+import java.util.List;
+
+public interface DessertService{
+    Dessert save(Dessert dessert);
+    List<Dessert> findAll();
+    Dessert findById(long id);
+    Dessert findByName(String name);
+    Dessert update(Dessert dessert);
+    void delete(Dessert dessert);
+    boolean existsByName(String name);
 }

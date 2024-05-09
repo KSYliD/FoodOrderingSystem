@@ -1,4 +1,4 @@
-package com.example.foodorderingsystem.services.classes;
+package com.example.foodorderingsystem.services.implementations;
 
 import com.example.foodorderingsystem.entities.Order;
 import com.example.foodorderingsystem.repositories.OrderRepository;
@@ -19,23 +19,25 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> readAll() {
-        return orderRepository.readAll();
+    public List<Order> findAll() {
+        return orderRepository.findAll();
     }
 
     @Override
-    public Order readById(long id) {
-        return orderRepository.readById(id);
-    }
-
-    @Override
-    public Order readByName(String name) {
-        return orderRepository.readByName(name);
+    public Order findById(long id) {
+        return orderRepository.findById(id);
     }
 
     @Override
     public Order update(Order order) {
-        return orderRepository.update(order);
+        Order orderData = orderRepository.findById(order.getId());
+        orderData.setTableNum(order.getTableNum());
+        orderData.setMainCourse(order.getMainCourse());
+        orderData.setDessert(order.getDessert());
+        orderData.setDrink(order.getDrink());
+        orderData.setDetails(order.getDetails());
+        return orderRepository.save(orderData);
+
     }
 
     @Override

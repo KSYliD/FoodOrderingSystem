@@ -1,5 +1,38 @@
 package com.example.foodorderingsystem.entities;
 
-public enum TypeOfFood {
-    MAIN_COURSE, DESSERT, DRINK
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Table
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class Dessert {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String name;
+    private double price;
+    private String details;
+    @ManyToOne
+    @JoinColumn(name = "cuisine_id")
+    private Cuisine cuisine;
+
+    public Dessert(String name, double price, String details, Cuisine cuisine) {
+        this.name = name;
+        this.price = price;
+        this.details = details;
+        this.cuisine = cuisine;
+    }
+
+    public Dessert(String name, double price, String details) {
+        this.name = name;
+        this.price = price;
+        this.details = details;
+    }
 }

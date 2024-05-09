@@ -1,8 +1,13 @@
-package com.example.foodorderingsystem.services;
+package com.example.foodorderingsystem.services.interfaces;
 
 import com.example.foodorderingsystem.entities.Order;
 
-public interface OrderService {
+import java.util.List;
 
-    void saveOrder(Order order);
+public interface OrderService {
+    Order save(Order order);
+    List<Order> findAll();
+    Order findById(long id);
+    Order update(Order order);
+    void delete(Order order);
 }
